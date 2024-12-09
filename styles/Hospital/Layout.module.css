@@ -1,0 +1,98 @@
+.main {
+    width:100%;
+    max-width: 100%;
+    display:grid;
+    grid-template-columns: 220px 1fr;
+    justify-content: space-between;
+    padding: 2rem 3rem;
+    min-height: 100vh;
+    margin-top:80px;
+    }
+    .header{
+    
+        width:100%;
+        max-width: 100%;
+        z-index: 5;
+    }
+    .footer {
+        display: flex;
+        flex: 1;
+        padding: 2rem 0;
+        border-top: 1px solid #eaeaea;
+        justify-content: center;
+        align-items: center;
+    }
+
+    
+
+    .containerr{
+        min-width: 50%;
+        max-width: 100%;
+    }
+    
+    .container{
+        width:100%;
+        max-width: 100%;
+        display:flex;
+        flex-direction: column;
+        background: linear-gradient(
+            to bottom,
+            transparent,
+            rgb(var(--background-end-rgb))
+        )
+        rgb(var(--background-start-rgb));
+    }
+    
+    
+    @media (prefers-reduced-motion) {
+        .thirteen::before {
+        animation: none;
+        }
+    
+        .card:hover span {
+        transform: none;
+        }
+    }
+    
+    /* Mobile */
+    @media screen and (max-width: 780px) {
+        .content {
+        padding: 4rem;
+        }
+    
+        .grid {
+        grid-template-columns: 1fr;
+        margin-bottom: 120px;
+        max-width: 320px;
+        text-align: center;
+        }
+        
+        .Sidebar{
+            display: none;
+        }
+        .card {
+        padding: 1rem 2.5rem;
+        }
+    
+        .card h2 {
+        margin-bottom: 0.5rem;
+        }
+    
+        .main {
+        padding: 2rem 1rem;
+        margin-top:60px;
+        display:block;
+        }
+    }
+
+  /* Tablet and Smaller Desktop  */
+@media screen  and (max-width: 1200px) and (min-width: 780px) {
+    .main {
+        padding: 2rem 1.5rem;
+ 
+        }
+}
+
+
+
+

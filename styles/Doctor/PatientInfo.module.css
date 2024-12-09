@@ -1,0 +1,39 @@
+.container{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.image{
+    width:100%;
+    min-width: 200px;
+    max-width:auto;
+    border-radius: 10px;
+}
+
+.info{
+    font-size:22px;
+    padding-left:2rem;
+    line-height: 2;
+}
+
+.info span{
+    font-weight: bold;
+    font-size:24px;
+}
+
+@media screen and (max-width:768px) {
+    .container{
+        display:flex;
+        flex-direction: column;
+    }
+
+    .info{
+        padding:0.5rem;
+    }
+    .image{
+        padding:0.5rem;
+        border-radius: 20px;
+    }
+}

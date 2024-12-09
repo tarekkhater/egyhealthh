@@ -1,5 +1,11 @@
-import '@/ styles/globals.css'
+import { useState } from 'react'
+import '../styles/globals.css'
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  const [name , setName] = useState('default')
+  return (
+      
+      <Component {...pageProps} />
+  
+  )
 }

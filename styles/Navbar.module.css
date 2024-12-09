@@ -1,0 +1,203 @@
+.container{
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 5px 10px 10px rgba(0, 0, 0, 0.047);
+    border-radius: 10px;
+    width:100%;
+    max-width: 100%;
+    padding:0.8rem 2rem;
+    background-color: transparent;
+}
+.nav{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height:auto;
+    color:black;
+}
+    .left{
+        
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .logo{
+        margin-left:10px;
+        width:60px;
+        height:55px;
+        border-radius:50px;
+        background-size: cover;
+        background-image: url('https://png.pngtree.com/element_our/20200702/ourlarge/pngtree-hospital-logo-pictures-image_2289643.jpg');
+    }
+    
+
+    .links a{
+        padding:8px;
+    }
+
+    .links a , .collapse a{
+        font-weight:bold;
+        text-decoration: none;
+        color:black;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .links a:hover , .collapse a:hover{
+        color:rgba(187, 54, 54, 0.87);
+    }
+
+    .right {
+        display:flex;
+        justify-content: space-between;
+        justify-items: center;
+        
+    }
+    .right input , .collapse input{
+        background-color: transparent;
+        border-radius: 15px;
+        border: 1px solid darkgray;
+        padding:4px 9px;
+        color:black;
+        font-weight: bold;
+    }
+
+    .right input::placeholder , .collapse input::placeholder{
+        color:rgb(26, 191, 147);
+    }
+
+    .image{
+        margin:0px 8px;
+        width:27px;
+        height:27px;
+        border-radius: 50%;
+    }
+  
+    .collapseButton{
+        display: none;
+        padding:0 8px 15px 8px;
+        line-height: 0;
+        font-size: 25px;
+        background-color: transparent;
+        border:1px solid lightgray;
+        color:darkgray;
+        
+    }
+    .collapseButton p {
+        margin:0;
+        padding:0;
+        height:7px;
+        font-weight: bold;
+        color:darkgray;
+    }
+    .collapse{
+        display:none;
+    }
+    .headers{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .SearchDiv{
+        position: relative;
+    }
+    
+    .searchResults{
+        position: absolute;
+        background-color: white;
+        padding:10px;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+        border-radius: 10px;
+        border:1px solid lightgray;
+        width:100%;
+        line-height: 2;
+    }
+    
+    .result{
+        padding:2px 5px;
+        border-radius: 10px;
+        text-transform: capitalize;
+    }
+    
+    .result p{
+        color:black;
+        font-size: 16px;
+    }
+    
+    .result:hover{
+        background-color: #a3bffa;
+    }
+
+    .menu{
+        position: absolute;
+        background-color: white;
+        border-radius: 10px;
+        padding: 2px 3px;
+        right:8px;
+    }
+
+    .logout{
+        font-size: 20px;
+        font-weight: bold;
+        color:crimson;
+    }
+@media screen and (max-width:780px) {
+        .container{
+        padding:0.8rem 2rem 0.8rem 1rem;
+        }
+        .links , .right input, .right img , .menu{
+            display:none;
+        }
+        .collapseButton{
+            display:initial;
+            color:darkgray;
+        }
+        .collapse{
+            margin:1rem; 
+            display: flex;
+        }
+        .collapse ul{
+            list-style-type: none;
+            
+        }
+        .collapse ul li{
+            line-height: 3;
+            padding:0;
+        }
+        .collapse ul li input{
+            padding:7px 9px;
+        }
+        .image{
+            margin:0px 8px;
+            width:32px;
+            height:32px;
+        }
+        .search{
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0px;
+        }
+        .logo{
+            margin-left:10px;
+            width:50px;
+            height:45px;
+        }
+
+        .searchResults{
+            position: absolute;
+            background-color: white;
+            padding:10px;
+            -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+            box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+            border-radius: 10px;
+            border:1px solid lightgray;
+            width:100%;
+            line-height: 2;
+        }
+        
+}
+@media screen and (max-width:470px) {
+    .container{
+        padding:0.8rem 2rem 0.8rem 0.5rem;
+    }
+}

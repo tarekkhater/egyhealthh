@@ -1,0 +1,129 @@
+.form{
+    margin:25px;
+    display:grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: space-between;
+    align-items: center;
+    padding:5px 100px 5px 40px;
+    width:100%;
+    max-width:100%;
+}
+
+.row{
+    display:flex;
+    align-items: center;
+    margin:6px 2px;
+    justify-content: space-evenly;
+}
+
+.row input{
+    margin-left: 1rem;
+    width:94%;
+}
+
+.row label{
+    width:60px;
+}
+
+.confirmLogin{
+    display: flex;
+    margin-top: 0.2rem;
+    align-items:center;
+    justify-content: flex-end;
+}
+
+.confirmLogin button{
+    padding:5px 8px;
+    margin-left:0.4rem;
+}
+
+.formReserved{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    padding:200px;
+    width:100%;
+    max-width: 100%;
+    background-color: rgba(211, 211, 211, 0.441);
+    opacity: 0.95;
+    z-index: 10;
+}
+
+
+
+.Selecion{
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border:1px solid rgba(128, 128, 128, 0.600);
+    width:100%;
+    display:block;
+    margin:5px 0;
+    padding:4px 8px;
+    font-size: 16px;
+    overflow-y: auto;
+}
+
+
+.SelecionDay{
+    border-radius: 20px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border:1px solid rgba(128, 128, 128, 0.600);
+    width:100%;
+    display:block;
+    margin:5px 0;
+    padding:0;
+    font-size: 12px;
+    
+}
+
+.Submit{
+    display: flex;
+    margin-top: 1rem;
+    align-items:center;
+    justify-content: space-between;
+}
+
+
+
+@media screen and (max-width:760px){
+    .form{
+        margin:15px 5px;
+        padding:5px;
+    }
+
+    .confirmLogin{
+        display: flex;
+        margin-top: 0.2rem;
+        align-items:center;
+    }
+
+    .row input{
+        width:81%;
+    }
+
+    .formReserved{
+        padding-left:190px;
+    }
+}
+
+@media screen and (min-width:760px) and (max-width:1100px) {
+    .form{
+        margin:15px 5px;
+        padding:5px;
+    }
+
+    .confirmLogin{
+        display: flex;
+        margin-top: 0.2rem;
+        align-items:center;
+        
+    }
+
+    .row input{
+        width:81%;
+       }
+}

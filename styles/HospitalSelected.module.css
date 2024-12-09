@@ -1,0 +1,207 @@
+.container{
+    width:100%;
+    max-width: 100%;
+    display:flex;
+    flex-direction: column;
+    padding:1.2rem 1.5rem;
+}
+
+.name{
+    text-transform: capitalize;
+    font-size: 26px;
+    color:rgba(200, 26, 26, 0.856);
+    margin-bottom: 1rem;
+}
+
+.hospital{
+    width:100%;
+    max-width:100%;
+    display:flex;
+    justify-content: safe;
+    align-items:flex-start ;
+}
+
+.imageHospital{
+    width:800px;
+    max-width:100%;
+    border-radius: 10px;
+}
+.hospitalInfo{
+    text-transform: capitalize;
+    line-height: 2;
+    padding-left:2rem;
+    
+}
+.hospitalInfo p{
+    font-weight: bold;
+    font-size:22px;
+}
+.hospitalInfo span{
+    font-weight: 400;
+    font-size:20px;
+}
+.available{
+    color:green;
+}
+.unavailable{
+    color:darkred;
+}
+
+.doctors{
+    width:100%;
+    max-width: 100%;
+    display:grid;
+    grid-template-columns: repeat(3,auto);
+}
+
+.doctor{
+    display:flex;
+    justify-content: safe;
+    align-items: flex-start;
+    margin: 1rem;
+    padding: 1rem;
+    text-align: left;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    text-transform: capitalize;
+    
+
+}
+.doctor:hover,
+  .doctor:focus,
+  .doctor:active {
+    border-color: gray;
+  }
+
+.imageDoctor{
+    width:120px;
+    border-radius: 15px;
+}
+.doctorInfo{
+    padding-left:1.2rem;
+}
+.doctorInfo h3{
+    font-size:20px;
+    color:rgba(161, 23, 35, 0.864);
+    line-height: 1.6;
+}
+.doctorInfo p{
+    font-size:18px;
+    font-weight: bold;
+    color:rgba(0, 0, 0, 0.92);
+}
+.doctorInfo span{
+    font-size:16px;
+    font-weight: 400;
+    color:black;
+}
+
+@media screen and (max-width:1200px) {
+    .hospital{
+        display:grid;
+        grid-template-columns: repeat(2,1fr);
+    }
+    .imageHospital{
+        width:auto;
+        max-width:100%;
+        border-radius: 10px;
+    }
+}
+
+@media screen and (max-width:1120px) {
+    .doctors{
+        width:100%;
+        max-width: 100%;
+        display:grid;
+        grid-template-columns: repeat(2,auto);
+    }
+
+    .hospitalInfo p{
+        font-weight: bold;
+        font-size:20px;
+    }
+    .hospitalInfo span{
+        font-weight: 400;
+        font-size:18px;
+    }
+}
+
+
+
+@media screen and (max-width:752px) {
+    
+    .hospitalInfo{
+        text-transform: capitalize;
+        line-height: 2;
+        padding-left:2rem;
+        
+    }
+    .hospitalInfo p{
+        font-weight: bold;
+        font-size:18px;
+    }
+    .hospitalInfo span{
+        font-weight: 400;
+        font-size:16px;
+    }
+    .hospitalInfo button{
+        font-size:13px;
+    }
+
+    .doctorInfo{
+        padding-left:1.2rem;
+    }
+    .doctorInfo h3{
+        font-size:18px;
+        color:rgba(161, 23, 35, 0.864);
+        line-height: 1.6;
+    }
+    .doctorInfo p{
+        font-size:16px;
+        font-weight: bold;
+        color:rgba(0, 0, 0, 0.92);
+    }
+    .doctorInfo span{
+        font-size:14px;
+        font-weight: 400;
+        color:black;
+    }
+
+}
+
+@media screen and (max-width:740px) {
+    .container{
+        width:100%;
+        max-width: 100%;
+        display:flex;
+        flex-direction: column;
+        padding:1rem 1.5rem;
+    }
+
+    .hospital{
+        width:100%;
+        max-width:100%;
+        margin-top:0.5rem;
+        padding:0;
+        display:flex;
+        flex-direction: column;
+    }
+
+    .hospitalInfo{
+        padding-left:0;
+    }
+
+    .doctors{
+        width:100%;
+        max-width: 100%;
+        display:grid;
+        grid-template-columns: repeat(1,auto);
+    }
+
+    .doctor{
+        margin-left:0;
+    }
+}

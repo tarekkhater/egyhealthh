@@ -1,0 +1,129 @@
+.main {
+    width:100%;
+    max-width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    min-height: 85vh;
+    padding-top:130px;
+  }
+  .header{
+    width:100%;
+    max-width: 100%;
+    z-index: 5;
+    position: fixed;
+  }
+  .footer {
+    display: flex;
+    flex: 1;
+    padding: 2rem 0;
+    border-top: 1px solid #eaeaea;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .date input{
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border:1px solid rgba(128, 128, 128, 0.600);
+    margin:5px 0;
+    padding:4px 8px;
+    font-size: 16px;
+
+  }
+  .date label{
+    font-size: 18px;
+    color:rgba(0, 0, 0, 0.900);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .container{
+    width:100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding:10px;
+    justify-content: space-between;
+  }
+  .container p{
+    font-size: 22px;
+    color:#901630;
+    font-weight: bold;
+  }
+
+
+  .search{
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border:1px solid rgba(128, 128, 128, 0.600);
+    margin:5px 0;
+    padding:4px 8px;
+    font-size: 16px;
+  }
+
+  .search:focus{
+    border-color: #a3bffa;
+  --tw-ring-color: rgba(199, 210, 254, 0.5);
+  --tw-ring-opacity: 0.5;
+  }
+  
+  
+  @media (prefers-reduced-motion) {
+    .thirteen::before {
+      animation: none;
+    }
+  
+    .card:hover span {
+      transform: none;
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 700px) {
+    .content {
+      padding: 4rem;
+    }
+  
+    .grid {
+      grid-template-columns: 1fr;
+      margin-bottom: 120px;
+      max-width: 320px;
+      text-align: center;
+    }
+  
+    .card {
+      padding: 1rem 2.5rem;
+    }
+  
+    .card h2 {
+      margin-bottom: 0.5rem;
+    }
+  
+    
+  }
+  
+  /* Tablet and Smaller Desktop */
+  @media (min-width: 701px) and (max-width: 1120px) {
+    .grid {
+      grid-template-columns: repeat(2, 50%);
+    }
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .vercelLogo {
+      filter: invert(1);
+    }
+  
+    .logo,
+    .thirteen img {
+      filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
+    }
+  }
+  
+  
+  

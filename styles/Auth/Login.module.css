@@ -1,0 +1,155 @@
+#container{
+    width:100%;
+    max-width:100%;
+    padding: 6rem 0 ;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    }
+    
+    #login{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 480px;
+    margin:70px 0 68px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+    .logo{
+        position: absolute;
+        top:50px;
+        left:70px;
+        width:140px;
+        height:130px;
+        border-radius: 150px;
+        background-size: cover;
+        background-image: url('https://png.pngtree.com/element_our/20200702/ourlarge/pngtree-hospital-logo-pictures-image_2289643.jpg');
+    }
+
+    .confirmLogin{
+    justify-content: flex-end;
+    display: flex;
+    margin-top: 1rem;
+    align-items:center;
+    }
+    .confirmLogin a, #login a{
+    text-decoration:none ;
+    color:rgb(75 85 99);
+    margin-right: 0.75rem;
+    }
+    .confirmLogin a:hover , #login a:hover{
+    color:rgba(38, 38, 77, 0.618);;
+    }
+
+    .header{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .loginActors{
+        display:inline-flex;
+        color:black;
+        position: absolute;
+        right:60px;
+        top:80px;
+    }
+    .loginActors p{
+        margin:0 12px;
+        font-size:18px;
+    }
+
+    .loginActors p:hover{
+        color:darkred;
+    }
+    
+
+    .title{
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .title p{
+        font-size:26px;
+        font-weight: 500;
+        font-family:Arial, Helvetica, sans-serif;
+        color: #ac2d48fb;
+        margin:10px 0;
+        margin-bottom: 20px;
+    }
+    @media screen and (max-width: 1100px) and (min-width:760px) {
+        .logo{
+            position: absolute;
+            top:50px;
+            left:50px;
+            width:110px;
+            height:100px;
+            border-radius: 50px;
+            background-size: cover;
+            background-image: url('https://png.pngtree.com/element_our/20200702/ourlarge/pngtree-hospital-logo-pictures-image_2289643.jpg');
+        }
+    }
+    @media screen and (max-width: 760px) {
+        #login{
+            padding:15px;
+            margin:30px 0 52px 0;
+            width:400px;
+        }
+        .logo{
+            position: absolute;
+            top:20px;
+            left:20px;
+            width:85px;
+            height:85px;
+            border-radius: 50px;
+            background-size: cover;
+            background-image: url('https://png.pngtree.com/element_our/20200702/ourlarge/pngtree-hospital-logo-pictures-image_2289643.jpg');
+        }
+    }
+
+@media screen and (max-width:440px){
+    .loginActors{
+        display:inline-flex;
+        color:black;
+        position: absolute;
+        right:10px;
+        top:60px;
+    }
+
+    .loginActors p{
+        margin:0 10px;
+        font-size:16px;
+    }
+}
+
+@media screen and (max-width:385px){
+    #container{
+        width:100%;
+        max-width:100%;
+        padding: 6rem 0 ;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        }
+        
+        #login{
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        width: 100%;
+        margin:50px 0 68px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        }
+}

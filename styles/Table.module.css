@@ -1,0 +1,99 @@
+.table{
+    margin-top:20px;
+    padding:20px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border-radius: 10px;
+    border:1px solid lightgray;
+    animation-duration: 150ms;
+    max-width:100%;
+    transition: max-width 1.5s ease;
+    } 
+    
+    
+    .table th{
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .table td{
+        font-weight: bold;
+        font-size: 13px;
+        font-family:Arial, Helvetica, sans-serif;
+    }  
+        .header{
+            font-size:20px;
+        }
+        
+        .date input{
+            border-radius: 10px;
+            -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+            box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+            border:1px solid rgba(128, 128, 128, 0.600);
+            margin:5px 0;
+            padding:4px 8px;
+            font-size: 16px;
+        
+        }
+        .date label{
+            font-size: 18px;
+            color:rgba(0, 0, 0, 0.900);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    
+        .cellWrapper {
+            display: flex;
+            align-items: center;
+        }
+        
+            .image {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+            }
+            .table button {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.775rem;
+            line-height: 1rem;
+            font-weight: 500;
+            border-radius: 15px;
+            border-color: transparent;
+            color:white;
+            font-family: Arial, Helvetica, sans-serif;
+            }
+    
+            .accepted{
+            background-color:rgb(38, 38, 158);
+            color:white;
+            }
+        
+    
+            .done{
+            background-color:green;
+            color:white;
+            }
+            
+    
+            .rejected{
+            background-color: rgba(152, 22, 22, 0.866);
+            color:white;
+            }
+
+@media screen and (max-width:768px){
+        .image {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 6px;
+            object-fit: cover;
+        }
+        
+        
+    }
+
+@media screen and (max-width:400px){
+    .headButton{
+        font-size: 12px;
+    }
+}
