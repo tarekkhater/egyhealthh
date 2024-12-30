@@ -2,12 +2,11 @@
     display:grid;
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
-    margin-top: 2rem;
+    margin-top: 0.5rem;
 }
 
 .image{
     width:100%;
-    min-width: 200px;
     max-width:auto;
     border-radius: 10px;
 }
@@ -30,10 +29,10 @@
     }
 
     .info{
-        padding:0.5rem;
+        padding:0;
     }
     .image{
-        padding:0.5rem;
+        padding:0;
         border-radius: 20px;
     }
 }

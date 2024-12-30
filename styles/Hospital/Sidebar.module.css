@@ -1,29 +1,42 @@
 .container{
     width:100%;
     max-width:100%;
-    padding:20px;
-    margin-left:1px;
-    
-   
+    padding:20px 0;
 }
-.container:first-child p{
+.link p ,.active p{
     margin:2px 85px 2px 0px;
-    padding:8px 8px;
+    padding:8px 10px;
     border-radius: 20px;
+    width:90%;
+    line-height:33px;  
+}
+.link p{
+    color: #ffffffc4; /* Light text for contrast */
     font-weight: 400;
     font-size:20px;
-    color:black;
-    width:100%;
-    line-height:33px;
-    
 }
-.container:first-child p:hover ,.container:first-child p:active{
-    background-color: lightgray;
-    
+.link p:hover ,.link p:active{
+    background-color: rgba(121, 7, 7, 0.596);
 }
-#home{
+.active p{
+    font-size:20px;
+    font-weight: 800;
+    color:rgba(192, 10, 10, 0.849) ;
+    cursor:default;
+}
+
+.brand{
+    display: flex;
+    align-items: center;
+    font-size:xx-large;
+    font-weight:bold;
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: 600;
+    color:rgba(255, 255, 255, 0.836);
+    margin-bottom: 1rem;
+    padding-left: 10px;
+}
+.brand span{
+    color:rgba(192, 10, 10, 0.849);
 }
 .logo{
    margin:20px 0 30px 5px;

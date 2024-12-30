@@ -10,22 +10,28 @@ import ClincalReservations from '../../components/Hospital/ClincalReservations'
 import { Button } from '@/components/Tools/Tools '
 import { useRouter } from 'next/router'
 import Loading from '@/components/Loading '
+import localStorage from 'redux-persist/lib/storage'
 
 export default function Reservs() {
-    const {user , reservations } = useAuth({'middleware':"auth"})
+    const { user , reservations } = useAuth({'middleware':"auth"})
     const [reservs , setReservs] = useState()
     const [date , setDate] = useState()
     const [ShowManualReservations , setShowManualReservations] = useState(false)
     const [ress , setRess] = useState()
     const [x , setX] = useState(5)
     const [y , setY] = useState(5)
-    const [loading , setLoading] = useState(true)
     const router = useRouter()
+    const [tokens , setTokens] = useState()
+    const [userData , setUserData] = useState()
 
     useEffect(() => {
-        reservations({setReservs  })
-        setRess(reservs?.Reservations)
-    }, [router]);
+        const getToken = localStorage.getItem(('hospitalAuthToken')).then((token) =>{
+            reservations({token,setReservs})
+            setTokens(token)
+            user({token , setUserData  })
+            setRess(reservs?.Reservations)
+          })
+    }, []);
 
     useEffect(() => {
         setRess(reservs?.Reservations);
@@ -39,6 +45,8 @@ export default function Reservs() {
     }
   return (
     <HospitalLayout 
+    user={userData}
+    token={tokens}
         container={
         <div className={styles.container}>
             <div >
@@ -50,8 +58,8 @@ export default function Reservs() {
                         <input  type='date' onChange={(e)=>{setDate(e.target.value);}} />
                     </div>
                 </div>
-                <ClincalReservations reservs={date? clincalsReserves?.filter(reserve=> reserve?.date == date) : clincalsReserves?.slice(0,x)} ShowManualReservations={ShowManualReservations}  />
-                {x <= clincalsReserves?.length && !ShowManualReservations &&(
+                <ClincalReservations token={tokens} reservs={date? clincalsReserves?.filter(reserve=> reserve?.date == date) : clincalsReserves?.slice(0,x)} ShowManualReservations={ShowManualReservations}  />
+                {x < clincalsReserves?.length && !ShowManualReservations &&(
                     <Button style={{float:'right' , backgroundColor:'purple' , marginTop:'0.6rem'}}
                     onClick={()=>setX(x+5)}>More..</Button>
                 )}
@@ -74,8 +82,8 @@ export default function Reservs() {
                     
             </div>
                 
-                <Reservations reservs={date? roomsReserves?.filter(reserve=> reserve?.date == date) : roomsReserves?.slice(0,y)} ShowManualReservations={ShowManualReservations}  />
-                {y <= roomsReserves?.length && !ShowManualReservations &&(
+                <Reservations token={tokens} reservs={date? roomsReserves?.filter(reserve=> reserve?.date == date) : roomsReserves?.slice(0,y)} ShowManualReservations={ShowManualReservations}  />
+                {y < roomsReserves?.length && !ShowManualReservations &&(
                     <Button style={{float:'right' , backgroundColor:'purple' , marginTop:'0.6rem'}}
                     onClick={()=>setY(y+5)}>More..</Button>
                 )}

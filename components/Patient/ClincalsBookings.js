@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import styles from '../../styles/Table.module.css'
 import { motion } from 'framer-motion';
 
-export default function ClincalsBookings({reservs , setX}) {
+export default function ClincalsBookings({token,reservs , setX}) {
     const { cancelReservation } = useAuth({
         middleware: 'use',
         redirectIfAuthenticated: '/',
@@ -26,8 +26,8 @@ export default function ClincalsBookings({reservs , setX}) {
   return (
     <>
     
-        {!clincalsReservs?.length > 0? (<div style={{padding:"10rem 0"  , display:'flex' , alignItems:'center' , justifyContent:'center' }}>
-            <h4>No reservations of clincals to view.</h4>
+        {!clincalsReservs?.length > 0? (<div style={{padding:"10rem 0"  ,color:'black' ,display:'flex' , alignItems:'center' , justifyContent:'center' }}>
+            <h2>No reservations of clincals to view.</h2>
         </div>):(
             <TableContainer component={Paper} className={styles.table}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -81,7 +81,7 @@ export default function ClincalsBookings({reservs , setX}) {
                         <TableCell>
                             <motion.button className={styles.rejected} variants={variants} whileHover='hover' onClick={()=>
                             {   reserve.status = 'canceled';
-                            cancelReservation({'id':reserve.id });
+                            cancelReservation({token,'id':reserve.id });
                         }}>Cancel</motion.button>
                         </TableCell>
                         </>

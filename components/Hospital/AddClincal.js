@@ -8,7 +8,7 @@ import { easeInOut, motion } from 'framer-motion'
 import { useAuth } from '@/Hooks/hospitalAuth '
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function AddClincal({setShow , setClincalAdded }) {
+export default function AddClincal({token ,setShow , setClincalAdded }) {
     const [name, setName] = useState('')
     const {addClincal} =  useAuth({'middleware':'auth'})
     const [data, setData] = useState()
@@ -28,7 +28,7 @@ export default function AddClincal({setShow , setClincalAdded }) {
     }, [data]);
     const Add = async event => {
         event.preventDefault()
-        addClincal({name  , setData})
+        addClincal({token , name  , setData})
     }
     console.log(data)
 return (
@@ -37,7 +37,7 @@ return (
         initial={{x:-400 , y:-400 ,  opacity:0 }}
         animate = {{x:0 , y: 0,  opacity:1}}
         end={{x:-400 , y:-400, opacity:0 }}
-        transition={{type:"spring" , duration:.5 , ease:easeInOut , delay:1}}>
+        transition={{type:"spring" , duration:1.5 , ease:easeInOut , delay:0.5}}>
             <div className={styles.row}>
                 <Label htmlFor="clincal">Clincal</Label>
 

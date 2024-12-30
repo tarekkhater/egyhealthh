@@ -2,43 +2,54 @@ import useSWR from 'swr'
 import axioss from '../lib/axios'
 import { useRouter } from 'next/router'
 import { createContext, useEffect, useState } from 'react'
-import Cookies from 'js-cookie';
-
-
-
-
+import localStorage from 'redux-persist/lib/storage'
 
 export const useAuth = ({middleware , redirectIfAuthenticated}) => {
-    const token = Cookies.get('authToken');
     const router = useRouter()
+    /*
     const { data: user, error, mutate } = useSWR('/api/hospital', () =>
         axioss.get('/api/hospital').then(res => res.data))
     const csrf = () => axioss.get('/sanctum/csrf-cookie')
+    */
+    const user = async ({token,setUserData}) => {
+
+        setUserData([])
+
+        await axioss
+            .get('/hospital',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
+            .then(res => {
+                setUserData( res?.data) 
+            })
+        
+    }
     
     const login = async ({ setData,  ...props }) => {
-        await csrf()
+        //await csrf()
         
         setData([])
         await axioss
             .post('/hospital/login', props)
             .then(res => {
                 setData( res?.data?.original) ;
-                Cookies.set('authToken', res?.data?.original?.hospital?.api_token, {
-                    expires: 1, // 7 days
-                    secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-                    sameSite: 'strict',
-                })
-        
+                localStorage.setItem('hospitalAuthToken', res?.data?.original?.hospital?.api_token)
                 })
             
     }
 
-    const create = async ({ setData, ...props }) => {
-        await csrf()
+    const create = async ({token , setData, ...props }) => {
+        //await csrf()
 
         setData([])
 
-        axioss.post('/hospital/createDoctor' , props)
+        axioss.post('/hospital/createDoctor' , props,{
+            headers:{
+                'auth-token' : token
+            }
+        })
             .then(res => {
                 setData( res?.data) 
                 })
@@ -50,13 +61,17 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const doctors = async ({ setData}) => {
-        await csrf()
+    const doctors = async ({token , setData}) => {
+        //await csrf()
 
         setData([])
 
         axioss
-            .get('/hospital/getDoctors')
+            .get('/hospital/getDoctors',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setData( res?.data) 
                 })
@@ -66,13 +81,17 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const search = async ({ setResult, ...props }) => {
-        await csrf()
+    const search = async ({token, setResult, ...props }) => {
+        //await csrf()
 
         setResult([])
 
         axioss
-            .post('/hospital/search', props )
+            .post('/hospital/search', props,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => {
                 setResult( res?.data) 
                 })
@@ -82,49 +101,65 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const reservations = async ({ setReservs}) => {
-        await csrf()
+    const reservations = async ({token , setReservs}) => {
+        //await csrf()
         setReservs([])
 
         await axioss
-            .get('/hospital/getReservations')
+            .get('/hospital/getReservations',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setReservs( res?.data) 
                 })
           
     }
 
-    const emergencyCases = async ({ setCases}) => {
-        await csrf()
+    const emergencyCases = async ({token ,setCases}) => {
+        //await csrf()
 
         setCases([])
 
         await axioss
-            .get('/hospital/getEmergencyCases')
+            .get('/hospital/getEmergencyCases',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setCases( res?.data) 
                 })
         
     }
 
-    const rooms = async ({ setRooms}) => {
-        await csrf()
+    const rooms = async ({token, setRooms}) => {
+        //await csrf()
         setRooms([])
 
         await axioss
-            .get('/hospital/getRooms')
+            .get('/hospital/getRooms',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setRooms( res?.data) 
                 })
     }
 
-    const addRoom = async ({ setData, ...props }) => {
-        await csrf()
+    const addRoom = async ({token, setData, ...props }) => {
+        //await csrf()
 
         setData([])
 
         axioss
-            .post('/hospital/addRoom', props  )
+            .post('/hospital/addRoom', props ,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => {
                 setData( res?.data) 
                 })
@@ -134,24 +169,32 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const clincals = async ({ setClincals}) => {
-        await csrf()
+    const clincals = async ({token , setClincals}) => {
+        //await csrf()
         setClincals([])
 
         await axioss
-            .get('/hospital/getClincals')
+            .get('/hospital/getClincals',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setClincals( res?.data) 
                 })
     }
 
-    const addClincal = async ({ setData, ...props }) => {
-        await csrf()
+    const addClincal = async ({token , setData, ...props }) => {
+        //await csrf()
 
         setData([])
 
         axioss
-            .post('/hospital/addClincal', props  )
+            .post('/hospital/addClincal', props ,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => {
                 setData( res?.data) 
                 })
@@ -161,13 +204,17 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const reserve = async ({ setData, ...props }) => {
-        await csrf()
+    const reserve = async ({token , setData, ...props }) => {
+        //await csrf()
 
         setData([])
 
         axioss
-            .post('/hospital/reserve', props  )
+            .post('/hospital/reserve', props ,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => {
                 setData( res?.data) 
                 })
@@ -177,13 +224,17 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const clincalReserve = async ({ setData, ...props }) => {
-        await csrf()
+    const clincalReserve = async ({token , setData, ...props }) => {
+        //await csrf()
 
         setData([])
 
         axioss
-            .post('/hospital/clincalReserve', props  )
+            .post('/hospital/clincalReserve', props ,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => {
                 setData( res?.data) 
                 })
@@ -193,78 +244,107 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const deleteClincal = async ({  id , setData }) => {
-        await csrf()
+    const deleteClincal = async ({token ,  id , setData }) => {
+        //await csrf()
         setData([])
 
         axioss
-            .get(`/hospital/deleteClincal/${id}` )
+            .get(`/hospital/deleteClincal/${id}`,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => setData(res?.data)
                 )
     }
 
-    const deleteRoom = async ({  id , setData }) => {
-        await csrf()
+    const deleteRoom = async ({ token , id , setData }) => {
+        //await csrf()
         setData([])
 
         axioss
-            .get(`/hospital/deleteRoom/${id}` )
+            .get(`/hospital/deleteRoom/${id}`,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => setData(res?.data)
                 )
     }
 
-    const deleteDoctor = async ({  id , setData }) => {
-        await csrf()
+    const deleteDoctor = async ({token ,  id , setData }) => {
+        //await csrf()
         setData([])
 
         axioss
-            .get(`/hospital/deleteDoctor/${id}` )
+            .get(`/hospital/deleteDoctor/${id}`,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => setData(res?.data)
                 )
     }
 
-    const acceptReservations = async ({  id }) => {
-        await csrf()
+    const acceptReservations = async ({token ,  id }) => {
+        //await csrf()
 
 
         axioss
-            .get(`/hospital/acceptReservation/${id}` )
+            .get(`/hospital/acceptReservation/${id}`,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(mutate)
             .then(res => res?.data?.original 
                 )
     }
 
-    const rejectReservations = async ({ id }) => {
-        await csrf()
+    const rejectReservations = async ({token , id }) => {
+        //await csrf()
 
 
         axioss
-            .get(`/hospital/rejectReservation/${id}`)
+            .get(`/hospital/rejectReservation/${id}`,{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(mutate)
             .then(res => res?.data?.original)
     }
 
-    const finishReservations = async ({ id }) => {
-        await csrf()
+    const finishReservations = async ({token , id }) => {
+        //await csrf()
 
         axioss
-            .get(`/hospital/finishReservation/${id}` )
+            .get(`/hospital/finishReservation/${id}`,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(mutate)
             .then(res =>  res?.data?.original) 
     }
 
-    const logout = async () => {
-        if (! error) {
+    const logout = async ({token}) => {
+        
             await axioss
-                .post('/hospital/logout')
-                .then(() => mutate())
-        }
+                .post('/hospital/logout',{
+                    headers:{
+                        'auth-token' : token
+                    }
+                })
+                .then(() => {
+                    localStorage.setItem('hospitalAuthToken', " ")
+                })
         router.push('/auth/login')
     }
 
     useEffect(() => {
-        if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated)
-    }, [ error , user ])
+      //  if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated)
+    }, [ user ])
 
     return {
         login,

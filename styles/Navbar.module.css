@@ -61,7 +61,7 @@
     }
 
     .right input::placeholder , .collapse input::placeholder{
-        color:rgb(26, 191, 147);
+        color:rgb(243, 46, 11)
     }
 
     .image{
@@ -90,6 +90,7 @@
     }
     .collapse{
         display:none;
+        background-color: rgba(34, 1, 18, 0.329);
     }
     .headers{
         display: flex;
@@ -110,8 +111,7 @@
         border:1px solid lightgray;
         width:100%;
         line-height: 2;
-    }
-    
+    } 
     .result{
         padding:2px 5px;
         border-radius: 10px;
@@ -152,8 +152,14 @@
             color:darkgray;
         }
         .collapse{
-            margin:1rem; 
+            position: absolute;
+            width:100%;
+            left:0;
+            margin:1rem 0; 
+            padding:0 1rem;
             display: flex;
+            height:100vh;
+
         }
         .collapse ul{
             list-style-type: none;

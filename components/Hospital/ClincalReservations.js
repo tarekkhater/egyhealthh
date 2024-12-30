@@ -11,9 +11,11 @@ import Link from 'next/link';
 import { getTimestamp } from 'swr/_internal';
 import { useAuth } from '@/Hooks/hospitalAuth ';
 import { motion } from 'framer-motion';
-export default function ClincalReservations({reservs , ShowManualReservations}) {
+export default function ClincalReservations({token,reservs , ShowManualReservations}) {
     const {acceptReservations , finishReservations , rejectReservations , reservations} = useAuth({'middleware':"auth" , 'redirectIfAuthenticated': ''})
     const variants ={
+        hidden: { opacity: 0, y: -10 },
+        visible: { opacity: 1, y: 0 },
         hover:{scale:1.06  ,
             translation:{type:'spring' }
         }
@@ -21,7 +23,6 @@ export default function ClincalReservations({reservs , ShowManualReservations}) 
     const todayReservs = reservs?.filter(reserve => reserve?.NORIH )
 
     
-    console.log(todayReservs)
     return (
     <>
     
@@ -50,7 +51,13 @@ export default function ClincalReservations({reservs , ShowManualReservations}) 
             </TableHead>
             <TableBody>
                 {reservs?.map((reserve) => (
-                <TableRow key={reserve.id}>
+                <motion.tr
+                key={reserve.id}
+                variants={variants}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.8 }}
+                >
                     {reservs?.length == todayReservs?.length &&(
                     <>
                         <TableCell >{reserve.NORIH}</TableCell>
@@ -76,7 +83,7 @@ export default function ClincalReservations({reservs , ShowManualReservations}) 
                     <TableCell>
                         <motion.button className={styles.done} variants={variants} whileHover='hover' onClick={()=>
                             {   reserve.status = 'done';
-                            finishReservations({'id':reserve.id })
+                            finishReservations({token,'id':reserve.id })
                         }} >Done</motion.button>
                     </TableCell>
                         </>) :
@@ -105,14 +112,14 @@ export default function ClincalReservations({reservs , ShowManualReservations}) 
                             <motion.button className={styles.accepted} variants={variants} whileHover='hover' onClick={()=>
                             {
                             reserve.status = 'accepted';
-                            acceptReservations({'id' : reserve.id })
+                            acceptReservations({token,'id' : reserve.id })
                             }} >Aceept</motion.button>
                         </TableCell>
                         
                         <TableCell>
                             <motion.button className={styles.rejected} variants={variants} whileHover='hover' onClick={()=>
                             {   reserve.status = 'rejected';
-                            rejectReservations({'id':reserve.id })
+                            rejectReservations({token,'id':reserve.id })
                         }}>Reject</motion.button>
                         </TableCell>
                         </>
@@ -120,7 +127,7 @@ export default function ClincalReservations({reservs , ShowManualReservations}) 
                     }
                     
                     
-                </TableRow>
+                </motion.tr>
                 ))}
             </TableBody>
             </Table>

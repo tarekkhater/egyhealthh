@@ -7,11 +7,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import styles from '../../styles/Hospital/Home.module.css'
-import Link from 'next/link';
-import { getTimestamp } from 'swr/_internal';
-import { useAuth } from '@/Hooks/hospitalAuth ';
-export default function EmergencyCases({cases ,  token}) {
-
+import { motion } from 'framer-motion';
+export default function EmergencyCases({cases }) {
+    const variants ={
+        hidden: { opacity: 0, y: -10 },
+        visible: { opacity: 1, y: 0 },
+        hover:{scale:1.06  ,
+            translation:{type:'spring' }
+        }
+        }
     return (
     <>
         {cases?.length == 0? (<div style={{textAlign:"center" , marginTop:"120px"}}>
@@ -32,7 +36,13 @@ export default function EmergencyCases({cases ,  token}) {
             </TableHead>
             <TableBody>
                 {cases?.map((Case) => (
-                <TableRow key={Case.id}>
+                <motion.tr
+                key={Case.id}
+                variants={variants}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.8 }}
+              >
                     <TableCell >
                     <div className={styles.cellWrapper}>
                     <img src={Case?.user?.image ?`http://domaiiiinonline.onlinewebshop.net/images/Users/${Case?.user?.image}` : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt={Case.product?.name} className={styles.image}/>
@@ -46,7 +56,7 @@ export default function EmergencyCases({cases ,  token}) {
 
                     
                     
-                </TableRow>
+                </motion.tr>
                 ))}
             </TableBody>
             </Table>

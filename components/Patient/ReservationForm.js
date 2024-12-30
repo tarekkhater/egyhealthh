@@ -13,7 +13,7 @@ import ClincalReservation from './ClincalReservation';
 import RoomReservation from './RoomReservation';
 
 
-export default function ReservationForm({show , setShow , clincals , doctors , rooms , id}) {
+export default function ReservationForm({token,show , setShow , clincals , doctors , rooms , id}) {
     const style = {
         position: 'relative' ,
         top: '50%',
@@ -39,7 +39,10 @@ export default function ReservationForm({show , setShow , clincals , doctors , r
         }
 
         window.addEventListener('mousedown',handler);
-    });
+        return () => {
+        window.removeEventListener('mousedown', handler);
+        };
+    }, []);
     
 
     
@@ -57,9 +60,9 @@ return (
                         <Button style={{backgroundColor:'darkblue'}} onClick={()=> setReserveType('room')}>Room</Button>
                     </div>
                 ):reserveType == 'room' ?(
-                    <RoomReservation setShow={setShow}  setReserveType={setReserveType} doctors={doctors} rooms={rooms} id={id} />
+                    <RoomReservation token={token} setShow={setShow}  setReserveType={setReserveType} doctors={doctors} rooms={rooms} id={id} />
                 ):(
-                    <ClincalReservation setShow={setShow}  setReserveType={setReserveType} clincals={clincals}  id={id} />
+                    <ClincalReservation token={token} setShow={setShow}  setReserveType={setReserveType} clincals={clincals}  id={id} />
                 )}
                 
                 

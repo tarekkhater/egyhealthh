@@ -8,6 +8,8 @@ import styles from '../styles/changePassword.module.css'
 import { toast , ToastContainer } from 'react-toastify'
 import { easeInOut, motion } from 'framer-motion'
 import 'react-toastify/dist/ReactToastify.css';
+import localStorage from 'redux-persist/lib/storage'
+import { useRouter } from 'next/router'
 
 export default function changePassword() {
     const {user , changePassword} = useAuth({'middleware':"auth"})
@@ -15,11 +17,21 @@ export default function changePassword() {
     const [newPassword , setNewPassword] = useState()
     const [newPassword_confirmation , setnewPassword_confirmation] = useState()
     const [data , setData] = useState()
-
+    const [userData , setUserData] = useState()
+    const [tokens , setTokens] = useState()
+    const router = useRouter()
     const submitForm = async event => {
         event.preventDefault()
-        changePassword({ currentPassword , newPassword , newPassword_confirmation, setData})    
+        changePassword({'token':tokens ,currentPassword , newPassword , newPassword_confirmation, setData})    
     }
+
+    useEffect(() => {
+        const getToken = localStorage.getItem(('authToken')).then((token) =>{
+          user({token,setUserData})
+          setTokens(token)
+        })
+      }, []);
+     
 
     useEffect(() => {
         if(data?.status == true){
@@ -32,8 +44,7 @@ export default function changePassword() {
             });
         }
     }, [data]);
-    console.log(data)
-    if(!user){
+    if(!userData){
         return <Loading />
     }
     return <Layout container={

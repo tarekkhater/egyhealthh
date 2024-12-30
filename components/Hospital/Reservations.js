@@ -11,9 +11,11 @@ import Link from 'next/link';
 import { getTimestamp } from 'swr/_internal';
 import { useAuth } from '@/Hooks/hospitalAuth ';
 import { motion } from 'framer-motion';
-export default function Reservations({reservs , ShowManualReservations}) {
+export default function Reservations({token,reservs , ShowManualReservations}) {
     const {acceptReservations , finishReservations , rejectReservations , reservations} = useAuth({'middleware':"auth" , 'redirectIfAuthenticated': ''})
     const variants ={
+        hidden: { opacity: 0, y: -10 },
+        visible: { opacity: 1, y: 0 },
         hover:{scale:1.06  ,
             translation:{type:'spring' }
         }
@@ -48,7 +50,13 @@ export default function Reservations({reservs , ShowManualReservations}) {
             </TableHead>
             <TableBody>
                 {manualReservs?.map((reserve) => (
-                <TableRow key={reserve.id}>
+                <motion.tr
+                                key={reserve.id}
+                                variants={variants}
+                                initial="hidden"
+                                animate="visible"
+                                transition={{ duration: 0.8 }}
+                              >
                     <TableCell >
                     <div className={styles.cellWrapper}>
                     <img src={reserve?.user?.image ?`http://domaiiiinonline.onlinewebshop.net/images/Users/${reserve?.user?.image}` : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt={reserve.product?.name} className={styles.image}/>
@@ -70,7 +78,7 @@ export default function Reservations({reservs , ShowManualReservations}) {
                     <TableCell>
                         <motion.button className={styles.done} variants={variants} whileHover='hover' onClick={()=>
                             {   reserve.status = 'done';
-                            finishReservations({'id':reserve.id })
+                            finishReservations({token,'id':reserve.id })
                         }} >Done</motion.button>
                     </TableCell>
                         </>) :
@@ -99,14 +107,14 @@ export default function Reservations({reservs , ShowManualReservations}) {
                             <motion.button className={styles.accepted} variants={variants} whileHover='hover' onClick={()=>
                             {
                             reserve.status = 'accepted';
-                            acceptReservations({'id' : reserve.id })
+                            acceptReservations({token,'id' : reserve.id })
                             }} >Aceept</motion.button>
                         </TableCell>
                         
                         <TableCell>
                             <motion.button className={styles.rejected} variants={variants} whileHover='hover' onClick={()=>
                             {   reserve.status = 'rejected';
-                            rejectReservations({'id':reserve.id })
+                            rejectReservations({token,'id':reserve.id })
                         }}>Reject</motion.button>
                         </TableCell>
                         </>
@@ -114,7 +122,7 @@ export default function Reservations({reservs , ShowManualReservations}) {
                     }
                     
                     
-                </TableRow>
+                </motion.tr>
                 ))}
             </TableBody>
             </Table>
@@ -137,7 +145,13 @@ export default function Reservations({reservs , ShowManualReservations}) {
             </TableHead>
             <TableBody>
                 {OnlineReservs?.map((reserve) => (
-                <TableRow key={reserve.id}>
+                <motion.tr
+                key={reserve.id}
+                variants={variants}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.8 }}
+              >
                     <TableCell >
                     <div className={styles.cellWrapper}>
                     <img src={reserve?.user?.image ?`http://domaiiiinonline.onlinewebshop.net/images/Users/${reserve?.user?.image}` : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt={reserve.product?.name} className={styles.image}/>
@@ -203,7 +217,7 @@ export default function Reservations({reservs , ShowManualReservations}) {
                     }
                     
                     
-                </TableRow>
+                </motion.tr>
                 ))}
             </TableBody>
             </Table>

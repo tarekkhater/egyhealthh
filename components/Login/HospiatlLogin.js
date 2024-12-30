@@ -5,22 +5,36 @@ import { useRouter } from 'next/router'
 import Link from 'next/link';
 import { easeInOut, motion } from 'framer-motion';
 import {  useAuth  } from '@/Hooks/hospitalAuth ';
+import localStorage from 'redux-persist/lib/storage';
 
 
 
 function HospitalLogin() {
 
-    const { login } = useAuth({'middleware':"guest" , 'redirectIfAuthenticated': '/hospital'});
+    const {user, login } = useAuth({'middleware':"guest" , 'redirectIfAuthenticated': '/hospital'});
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [shouldRemember, setShouldRemember] = useState(false)
     const router = useRouter()
     const [data, setData] = useState()
-    console.log(data)
+    const [userData, setUserData] = useState()
+
     const submitForm = async (e) => {
         e.preventDefault()
         login({name, password, shouldRemember, setData })
     }
+    useEffect(() => {
+        const getToken = localStorage.getItem(('hospitalAuthToken')).then((token) =>{
+        user({token,setUserData})
+        })
+      }, [data]);
+      useEffect(() => {
+        if(userData?.name){
+          router.push('/hospital')
+        }
+      }, [userData]);
+
+
     return (
     <>
     

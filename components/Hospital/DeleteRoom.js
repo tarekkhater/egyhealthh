@@ -11,7 +11,7 @@ import { toast , ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function DeleteRoom({open , setOpen , roomSelected , x , setX }) {
+export default function DeleteRoom({token , open , setOpen , roomSelected , x , setX }) {
     const style = {
         position: 'relative' ,
         top: '50%',
@@ -46,7 +46,7 @@ export default function DeleteRoom({open , setOpen , roomSelected , x , setX }) 
 
     const submitForm = async event => {
         event.preventDefault()
-        deleteRoom({'id': roomSelected?.id ,setData})
+        deleteRoom({token , 'id': roomSelected?.id ,setData})
     }
 
     console.log('data' , data)

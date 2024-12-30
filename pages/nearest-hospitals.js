@@ -6,6 +6,7 @@ import { Input, Label } from '@/components/Tools/Tools ';
 import Hospitals from '@/components/Patient/Hospitals ';
 import Loading from '@/components/Loading ';
 import { useRouter } from 'next/router';
+import localStorage from 'redux-persist/lib/storage'
 
 
 export default function Home() {
@@ -18,9 +19,13 @@ export default function Home() {
     const [data , setData] = useState()
     const router = useRouter()
     const searchRef = useRef()
+    const [tokens , setTokens] = useState()
 
     useEffect(() => {
-      getHospitals({setHospitals})
+      const getToken = localStorage.getItem(('authToken')).then((token) =>{
+        setTokens(token)
+        getHospitals({token,setHospitals})
+      });
   },[]);
 
   useEffect(() => {
@@ -34,7 +39,9 @@ export default function Home() {
             setValue(null)
             setData(null)
         }
-        searchByAddress({value , setData})
+        const getToken = localStorage.getItem(('authToken')).then((token) =>{
+          searchByAddress({token,value , setData})
+        });
     }, [value]);
 
     useEffect(() => {
@@ -55,7 +62,8 @@ export default function Home() {
     return <Loading />
   }
   return (
-    <Layout   container={
+    <Layout token={tokens} 
+    container={
       <div className={styles.container}>
         <div className={styles.title}>
             <h2>Get hospitals in your city </h2>

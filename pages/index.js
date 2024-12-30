@@ -13,14 +13,21 @@ import { useAuth } from '@/Hooks/auth ';
 import { Button } from '@/components/Tools/Tools ';
 import Loading from '../components/Loading'
 import { useRouter } from 'next/router';
+import localStorage from 'redux-persist/lib/storage'
 
 export default function Home() {
-  const {user , getHospitals } = useAuth({'middleware':'guest'})
+  const {user ,getHospitals } = useAuth({ 'middleware':'guest'})
   const router = useRouter()
   const [hospitals , setHospitals] = useState()
+  const [userData , setUserData] = useState()
+  const [tokens , setTokens] = useState()
 
   useEffect(() => {
-    getHospitals({setHospitals})
+    const getToken = localStorage.getItem(('authToken')).then((token) =>{
+      user({token,setUserData})
+      getHospitals({token,setHospitals})
+      setTokens(token)
+    })
   }, []);
 
   useEffect(() => {
@@ -28,14 +35,13 @@ export default function Home() {
       router.push('/auth/login')
     }
   }, [hospitals]);
-  
-  if(!user){
+  if(!userData?.email){
     return <Loading />
   }
   return (
-    <Layout className='container'  container={
+    <Layout className='coverContainer' user={user} token={tokens} container={
       <div className={styles.div1}>
-        <h3>Welcome <span style={{color:'darkblue'}}>{user?.name}</span></h3>
+        <h3>Welcome <span style={{color:'darkblue'}}>{userData?.name}</span></h3>
         <div>
         <p>Let's Find Your Hospital </p>
           <a href="/nearest-hospitals">

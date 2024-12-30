@@ -2,25 +2,34 @@ import useSWR from 'swr'
 import axioss from '../lib/axios'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Cookies from 'js-cookie';
+import localStorage from 'redux-persist/lib/storage'
 
 export const useAuth = ({middleware , redirectIfAuthenticated}) => {
     const router = useRouter()
-    const token = Cookies.get('authToken');
+    const user = async ({token,setUserData}) => {
 
-    const { data: user, error, mutate } = useSWR('/api/patient', () =>
-        axioss.get('/api/patient').then(res => res.data))
-    
+        setUserData([])
 
-  
-    const csrf = () => axioss.get('/sanctum/csrf-cookie')
+        await axioss
+            .get('/patient',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
+            .then(res => {
+                setUserData( res?.data) 
+                console.log('tokeeen' , token)
+                })
+        
+    }
+   // const csrf = () => axioss.get('/sanctum/csrf-cookie')
 
     const register = async ({setData  , ...props }) => {
-        await csrf()
+        //await csrf()
         setData([])
 
         axioss
-            .post('api/user/register', props)
+            .post('user/register', props)
             .then( res => {
                 setData( res?.data)   
                 
@@ -52,16 +61,16 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             .then(res => {
                 setData( res?.data?.original) 
                 //mutate(res?.data?.original?.user)
-                /*Cookies.set('authToken', res?.data?.original?.user?.api_token, {
-                    expires: 1, // 7 days
+                localStorage.setItem('authToken', res?.data?.original?.user?.api_token)
+                  /*  expires: 1, // 7 days
                     secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-                    sameSite: 'strict',
-                })*/
+                    sameSite: 'strict',*/
+                
             })
     }
 
     const forgetPassword = async ({ setStatus, setErrors, ...props }) => {
-        await csrf()
+        //await csrf()
 
         setErrors([])
 
@@ -75,7 +84,7 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
     }
 
     const resetPassword = async ({ setErrors, ...props }) => {
-        await csrf()
+        //await csrf()
 
         setErrors([])
 
@@ -91,13 +100,17 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const createEmergencyCase = async ({ setData}) => {
-        await csrf()
+    const createEmergencyCase = async ({token, setData}) => {
+        //await csrf()
 
         setData([])
 
         axioss
-            .post('/user/createEmergencyCase')
+            .post('/user/createEmergencyCase',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setData( res?.data?.original) 
                 })
@@ -107,13 +120,17 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const enterPatientHistory = async ({ setData, ...props }) => {
-        await csrf()
+    const enterPatientHistory = async ({token, setData, ...props }) => {
+        //await csrf()
 
         setData([])
 
         axioss
-            .post('/user/enterPatientHistory', props )
+            .post('/user/enterPatientHistory', props,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => {
                 setData( res?.data) 
                 })
@@ -123,94 +140,147 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const updatePatientHistory = async ({ setData , ...props}) => {
-        await csrf()
+    const updatePatientHistory = async ({token, setData , ...props}) => {
+        //await csrf()
         setData([])
 
         await axioss
-            .post('/user/updatePatientHistory' , props)
+            .post('/user/updatePatientHistory' , props,{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setData( res?.data) 
                 })
     }
 
-    const reserve = async ({ setData , ...props}) => {
-        await csrf()
+    const reserve = async ({token, setData , ...props}) => {
+        //await csrf()
 
         setData([])
 
         await axioss
-            .post('/user/reserve' , props)
-            .then(res => {
-                setData( res?.data) 
-                })
-        
-    }
-
-    const clincalReserve = async ({ setData , ...props}) => {
-        await csrf()
-
-        setData([])
-
-        await axioss
-            .post('/user/clincalReserve' , props)
+            .post('/user/reserve' , props,{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setData( res?.data) 
                 })
         
     }
 
-    const getHospitals = async ({ setHospitals}) => {
-        await csrf()
+    const clincalReserve = async ({token, setData , ...props}) => {
+        //await csrf()
+
+        setData([])
+
+        await axioss
+            .post('/user/clincalReserve', props,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
+            .then(res => {
+                setData( res?.data) 
+                })
+        
+    }
+
+    const getHospitals = async ({token, setHospitals}) => {
+        //await csrf()
         setHospitals([])
 
         axioss
-            .get('/user/hospitals')
+            .get('/user/hospitals',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setHospitals( res?.data) 
                 })
     }
 
-    const getClincals = async ({ setClincals}) => {
-        await csrf()
+    const getClincals = async ({token, setClincals}) => {
+        //await csrf()
         setClincals([])
 
         axioss
-            .get('/user/clincals',)
+            .get('/user/clincals',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setClincals( res?.data) 
                 })
     }
 
-    const UserData = async ({ setData}) => {
-        await csrf()
+    const UserData = async ({token, setData}) => {
+        //await csrf()
         setData([])
 
         axioss
-            .get('/user/patientHistory')
+            .get('/user/patientHistory',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setData( res?.data) 
                 })
     }
 
-    const bookings = async ({ setReservs}) => {
-        await csrf()
+    const bookings = async ({token, setReservs}) => {
+        //await csrf()
         setReservs([])
 
         axioss
-            .get('/user/reservations')
+            .get('/user/reservations',{
+                headers:{
+                    'auth-token' : token
+                }
+            })
             .then(res => {
                 setReservs( res?.data) 
                 })
     }
 
-    const searchByName = async ({ setData, ...props }) => {
-        await csrf()
+    const searchByName = async ({token, setData, ...props }) => {
+        //await csrf()
 
         setData([])
 
         axioss
-            .post('/user/searchByName', props  )
+            .post('/user/searchByName', props ,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
+            .then(res => {
+                setData( res?.data) 
+                console.log('tok' , token)
+                })
+            .catch(error => {
+                if (error?.response?.status !== 422) throw error
+                return "Something went wrong"
+            })
+    }
+
+    const searchByAddress = async ({token, setData, ...props }) => {
+        //await csrf()
+
+        setData([])
+
+        axioss
+            .post('/user/searchByAddress', props ,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => {
                 setData( res?.data) 
                 })
@@ -220,38 +290,30 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
             })
     }
 
-    const searchByAddress = async ({ setData, ...props }) => {
-        await csrf()
-
-        setData([])
-
+    const cancelReservation = async ({ token, id }) => {
+        //await csrf()
         axioss
-            .post('/user/searchByAddress', props  )
-            .then(res => {
-                setData( res?.data) 
-                })
-            .catch(error => {
-                if (error?.response?.status !== 422) throw error
-                return "Something went wrong"
-            })
-    }
-
-    const cancelReservation = async ({  id }) => {
-        await csrf()
-        axioss
-            .get(`/user/cancelReservation/${id}` )
+            .get(`/user/cancelReservation/${id}`,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(mutate)
             .then(res => res?.data?.original 
                 )
     }
 
-    const changePassword = async ({ setData, ...props }) => {
-        await csrf()
+    const changePassword = async ({ token,setData, ...props }) => {
+        //await csrf()
 
         setData([])
 
         axioss
-            .post('/user/changePassword', props  )
+            .post('/user/changePassword', props ,{
+                headers:{
+                    'auth-token' : token
+                }
+            } )
             .then(res => {
                 setData( res?.data) 
                 })
@@ -262,22 +324,24 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
     }
 
 
-    const logout = async () => {
+    const logout = async ({token}) => {
             await axioss
                 .post('/user/logout',{
                     headers :{
                         "auth-token" : token
                     }
                 })
-                .then(() => mutate());
+                .then(() => {
+                    localStorage.setItem('authToken', " ")
+                })
                 
             router.push( '/auth/login');
     }
 
     useEffect(() => {
-        if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated)
+    //    if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated)
     
-    }, [ error , user ])
+    }, [  user ])
 
     return {
         register,
@@ -299,6 +363,6 @@ export const useAuth = ({middleware , redirectIfAuthenticated}) => {
         changePassword,
         logout,
         user,
-        token
+        
     }
 }

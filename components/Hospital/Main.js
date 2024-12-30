@@ -13,7 +13,7 @@ import { useAuth } from '@/Hooks/hospitalAuth ';
 import Reservations from './Reservations';
 import EmergencyCases from './Cases';
 import ClincalReservations from './ClincalReservations';
-export default function Main({reservs , cases , setReservs}) {
+export default function Main({token,reservs , cases , setReservs}) {
   const clincalsReserves = reservs?.filter(reserve => reserve?.clincal !== null)
   const roomsReserves = reservs?.filter(reserve => reserve?.room !== null)
   return (
@@ -24,12 +24,12 @@ export default function Main({reservs , cases , setReservs}) {
       </div>
       <div style={{marginTop:'40px'}}>
       <p>Clincals Reservations</p>
-        <ClincalReservations reservs={clincalsReserves?.filter(reserve => reserve?.name == null)?.slice(0,5)}  setReservs={setReservs} />
+        <ClincalReservations token={token} reservs={clincalsReserves?.filter(reserve => reserve?.name == null)?.slice(0,5)}  setReservs={setReservs} />
       </div>
 
       <div style={{marginTop:'40px'}}>
       <p>Rooms Reservations</p>
-        <Reservations reservs={roomsReserves?.filter(reserve => reserve?.name == null)?.slice(0,5)}  setReservs={setReservs} />
+        <Reservations token={token} reservs={roomsReserves?.filter(reserve => reserve?.name == null)?.slice(0,5)}  setReservs={setReservs} />
       </div>
     </div>
   )

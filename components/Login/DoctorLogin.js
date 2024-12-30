@@ -2,12 +2,11 @@ import styles from '../../styles/Auth/Login.module.css';
 import {AuthCard ,  Button , Input ,  Label } from '../Tools/Tools'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link';
 import { useAuth } from '../../Hooks/doctorAuth'
 import { easeInOut, motion } from 'framer-motion';
+import localStorage from 'redux-persist/lib/storage';
 
 function DoctorLogin() {
-
     const { login , user } = useAuth({
     middleware: 'guest',
     redirectIfAuthenticated: '/doctor',
@@ -16,14 +15,23 @@ function DoctorLogin() {
     const [password, setPassword] = useState('')
     const [shouldRemember, setShouldRemember] = useState(false)
     const [data, setData] = useState()
+    const [userData, setUserData] = useState()
+    const router = useRouter()
 
-    console.log('data' , data)
-    console.log('user' , user)
+    useEffect(() => {
+        const getToken = localStorage.getItem(('doctorAuthToken')).then((token) =>{
+        user({token,setUserData})
+        })
+      }, [data]);
     const submitForm = async (e) => {
         e.preventDefault()
         login({national_id, password, shouldRemember, setData })
     }
-    
+    useEffect(() => {
+        if(userData?.name){
+          router.push('/doctor')
+        }
+      }, [userData]);
     return (
     <>
     

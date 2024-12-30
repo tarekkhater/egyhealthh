@@ -8,6 +8,8 @@
     flex-direction: column;
     overflow-y: hidden;
     overflow-x: hidden;
+    background-image: url('https://www.national.edu/wp-content/uploads/2021/11/Nov_4_iStock-1127069581-scaled.jpeg');
+    background-size: fill;
     }
     
     #login{
@@ -19,6 +21,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-weight: 600;
     }
 
     .logo{
@@ -40,11 +43,11 @@
     }
     .confirmLogin a, #login a{
     text-decoration:none ;
-    color:rgb(75 85 99);
+    color:rgba(245, 233, 235, 0.815);
     margin-right: 0.75rem;
     }
     .confirmLogin a:hover , #login a:hover{
-    color:rgba(38, 38, 77, 0.618);;
+    color:rgba(204, 17, 17, 0.699);;
     }
 
     .header{
@@ -62,10 +65,12 @@
     }
     .loginActors p{
         margin:0 12px;
-        font-size:18px;
+        font-size:20px;
+        font-weight: 600;
     }
 
     .loginActors p:hover{
+        cursor: pointer;
         color:darkred;
     }
     
@@ -78,7 +83,7 @@
     
     .title p{
         font-size:26px;
-        font-weight: 500;
+        font-weight: 700;
         font-family:Arial, Helvetica, sans-serif;
         color: #ac2d48fb;
         margin:10px 0;

@@ -7,7 +7,7 @@ import { toast , ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '@/Hooks/doctorAuth '
 
-export default function PrescriptionForm({open , setOpen , user_id }) {
+export default function PrescriptionForm({token ,open , setOpen , user_id }) {
     const style = {
         position: 'relative' ,
         top: '50%',

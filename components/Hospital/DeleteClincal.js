@@ -11,7 +11,7 @@ import { toast , ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function DeleteClincal({open , setOpen , clincalSelected , id , x , setX }) {
+export default function DeleteClincal({token , open , setOpen , clincalSelected , id , x , setX }) {
     const style = {
         position: 'relative' ,
         top: '50%',
@@ -47,7 +47,7 @@ export default function DeleteClincal({open , setOpen , clincalSelected , id , x
 
     const submitForm = async event => {
         event.preventDefault()
-        deleteClincal({'id': clincalSelected?.id ,setData})
+        deleteClincal({token ,'id': clincalSelected?.id ,setData})
     }
 
     console.log('data' , data)

@@ -1,8 +1,13 @@
-.container{
+.coverContainer , .fillContainer{
   width:100%;
   max-width:100%;
   background-image: url('https://www.national.edu/wp-content/uploads/2021/11/Nov_4_iStock-1127069581-scaled.jpeg');
+}
+.coverContainer{
   background-size:cover;
+}
+.fillContainer{
+  background-size:fill;
 }
 
 .main {

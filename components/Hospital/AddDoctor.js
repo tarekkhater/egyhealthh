@@ -13,7 +13,7 @@ import styles from "../../styles/Hospital/Rooms.module.css"
 import { useAuth } from '@/Hooks/hospitalAuth ';
 import { toast , ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-
+import { easeInOut, motion } from 'framer-motion';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -60,7 +60,7 @@ const MenuProps = {
     
 
 
-export default function AddDoctor({open , setOpen ,x ,setX }) {
+export default function AddDoctor({token,open , setOpen ,x ,setX }) {
     const style = {
         position: 'relative' ,
         top: '50%',
@@ -86,9 +86,7 @@ export default function AddDoctor({open , setOpen ,x ,setX }) {
         typeof value === 'string' ? value.split(',') : value,
         );
     };
-    const st = {
-        
-    }
+    const st = {  }
 
     const [name , setName] = useState()
     const [phone ,setPhone] = useState()
@@ -122,7 +120,7 @@ export default function AddDoctor({open , setOpen ,x ,setX }) {
 
     const submitForm = async event => {
         event.preventDefault()
-        create({  name, phone, national_id,specialty , password   , password_confirmation ,presence_days ,setData})
+        create({ token ,  name, phone, national_id,specialty , password   , password_confirmation ,presence_days ,setData})
     }
 
         useEffect(() => {
@@ -148,7 +146,10 @@ export default function AddDoctor({open , setOpen ,x ,setX }) {
 return (
 <>
     {open && (
-        <div className={styles.formReserved}>
+        <motion.div className={styles.formReserved}
+        initial={{ x: -200 , y: -200 , opacity: 0 }} 
+        animate={{ x: 0 , y: 0 , opacity: 1 }}
+        transition={{ type: 'spring' , duration: 1.5 , delay: 0.3 , ease: 'easeInOut' }}>
             <Box sx={style}  ref={formRef}>
                 <Typography id="modal-modal-title" variant="h6" component="h2" style={{textAlign:'center' , fontSize:'20px' , color:'blue' }}>
                     Add Doctor  
@@ -278,7 +279,7 @@ return (
                 </Typography>
             </Box>
             
-        </div>
+        </motion.div>
     )}
 </>
 )

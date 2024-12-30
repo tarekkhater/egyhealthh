@@ -10,9 +10,10 @@ import RoomReservedForm from '@/components/Hospital/RoomReservedForm '
 import DeleteRoom from '@/components/Hospital/DeleteRoom '
 import Loading from '@/components/Loading '
 import { useRouter } from 'next/router'
+import localStorage from 'redux-persist/lib/storage'
 
 export default function Room() {
-    const { user , rooms , doctors} = useAuth({'middleware' : 'auth'})
+    const {user ,  rooms , doctors} = useAuth({'middleware' : 'auth'})
     const [show, setShow] = useState(false)
     const [roomss , setRooms] = useState()
     const [roomAdded , setRoomAdded] = useState(false)
@@ -22,10 +23,17 @@ export default function Room() {
     const [data , setData] = useState()
     const [x ,setX] = useState(1)
     const router = useRouter()
+    const [userData , setUserData] = useState()
+    const [tokens , setTokens] = useState()
 
     useEffect(() => {
-        rooms({setRooms  })
-        doctors({setData})
+        const getToken = localStorage.getItem(('hospitalAuthToken')).then((token) =>{
+            rooms({token , setRooms  })
+            doctors({token , setData})
+            user({token , setUserData})
+            setTokens(token)
+          })
+        
     }, [x , roomAdded]);
 
     const variants ={
@@ -40,7 +48,7 @@ export default function Room() {
     }
     
   return (
-    <HospitalLayout  container={
+    <HospitalLayout token={tokens} user={userData}  container={
             <div className={styles.container}>
                 <div style={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}}>
                     <p>Rooms</p>
@@ -48,13 +56,13 @@ export default function Room() {
                 </div>
                 <div>
                     {show && (<>
-                            <AddRoom setShow={setShow} setRoomAdded={setRoomAdded} />
+                            <AddRoom token={tokens} setShow={setShow} setRoomAdded={setRoomAdded} />
                         </>)}
                     <Rooms rooms={roomss?.rooms} setOpen={setOpen} setOpenDeleteForm={setOpenDeleteForm} setRoomSelected={setRoomSelected} />
                     
                 </div>
-                <DeleteRoom roomSelected={roomSelected} open={openDeleteForm} setOpen={setOpenDeleteForm} x={x} setX={setX} />
-                <RoomReservedForm roomSelected={roomSelected} open={open} setOpen={setOpen} doctors={data?.Doctors} />
+                <DeleteRoom token={tokens} roomSelected={roomSelected} open={openDeleteForm} setOpen={setOpenDeleteForm} x={x} setX={setX} />
+                <RoomReservedForm token={tokens} roomSelected={roomSelected} open={open} setOpen={setOpen} doctors={data?.Doctors} />
             </div>
             
                 

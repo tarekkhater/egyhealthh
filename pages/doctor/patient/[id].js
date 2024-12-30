@@ -4,17 +4,25 @@ import DoctorLayout from '@/components/Layouts/DoctorLayout '
 import { useRouter } from 'next/router'
 import React , { useEffect , useState } from 'react'
 import styles from '../../../styles/Doctor/PatientInfo.module.css'
+import localStorage from 'redux-persist/lib/storage'
+import Loading from '@/components/Loading '
 
 
 export default function Patient () {
   const {query} = useRouter()
   const {id} = query
   const [ reservs , setReservs] = useState()
-  const {reservations } = useAuth({'middleware' : 'auth'})
+  const {reservations , user} = useAuth({'middleware' : 'auth'})
   const router = useRouter()
+  const [userData , setUserData] = useState()
+  const [tokens , setTokens] = useState()
 
   useEffect(() => {
-    reservations({setReservs})
+    const getToken = localStorage.getItem(('doctorAuthToken')).then((token) =>{
+      user({token,setUserData})
+      reservations({token , setReservs  })
+      setTokens(token)
+    })
   }, []);
 
   const data = reservs?.Reservations
@@ -29,14 +37,12 @@ export default function Patient () {
 
   if(!patient){
     return(
-      <div style={{width:'100%' , height:'100vh' ,display:'flex' , justifyContent:'center' , alignItems:'center' }}> 
-        <h3>Not Found</h3>
-      </div>
+      <Loading />
     )
-  }
+  } 
 
   if(!patient?.patient_history){
-    return <DoctorLayout   container={
+    return <DoctorLayout token={tokens} user={userData}  container={
       <div style={{width:'100%' ,display:'flex' , justifyContent:'center' , 'alignItems':'center' }}> 
         <h3>Patient didn't pull data yet.</h3>
       </div>
@@ -44,8 +50,8 @@ export default function Patient () {
   }
 
   return (
-    <DoctorLayout  container={
-      <div style={{width:'100%'}}>
+    <DoctorLayout token={tokens} user={userData} container={
+      <div >
         <h2>Patient &gt; {patient?.name} </h2>
         <div className={styles.container}>
           <div>

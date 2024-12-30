@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { easeInOut, motion } from 'framer-motion';
 
 
-export default function RoomReservation({setReserveType  , doctors , rooms , id}) {
+export default function RoomReservation({token,setReserveType  , doctors , rooms , id}) {
     const style = {
         position: 'relative' ,
         top: '50%',
@@ -28,7 +28,7 @@ export default function RoomReservation({setReserveType  , doctors , rooms , id}
     };
     let currentDate = new Date().toJSON().slice(0, 10);
     const [ doctorss , setDoctorss] = useState(doctors)
-    const roomsAvailable = rooms.filter(room => room.status == 1)
+    const roomsAvailable = rooms?.filter(room => room.status == 1)
     const [room_number , setRoom_number] = useState()
     const [date , setDate] = useState(currentDate)
     const [doctorSelected , setDoctorSelected] = useState()
@@ -36,8 +36,7 @@ export default function RoomReservation({setReserveType  , doctors , rooms , id}
     const { reserve} = useAuth({'middleware' : 'auth'})
     
 
-    const formRef = useRef()
-
+    console.log('rooms' , rooms) 
     /*
     useEffect(() => {
         let handler = (e)=>{
@@ -63,7 +62,7 @@ export default function RoomReservation({setReserveType  , doctors , rooms , id}
 
     const submitForm = async event => {
         event.preventDefault()
-        reserve({ room_number,  date ,'doctor_name' : doctorSelected[0] , 'hospital_id':id ,setData})
+        reserve({token ,room_number,  date ,'doctor_name' : doctorSelected[0] , 'hospital_id':id ,setData})
     }
 
         useEffect(() => {

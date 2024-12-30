@@ -4,7 +4,7 @@ import { useAuth } from '@/Hooks/auth '
 import { Button, Input, Label } from '../Tools/Tools'
 import { toast , ToastContainer } from 'react-toastify'
 
-export default function EnterDataForm({x , setX }) {
+export default function EnterDataForm({token,x , setX }) {
     const [full_name , setFullName] = useState()
     const [national_id , setNational_id] = useState()
     const [phone , setPhone] = useState()
@@ -16,7 +16,7 @@ export default function EnterDataForm({x , setX }) {
 
     const submitForm = async event => {
         event.preventDefault()
-        enterPatientHistory({ full_name,  national_id ,phone , chronic_disease ,gentic_disease , blood_type , setData})
+        enterPatientHistory({token ,full_name,  national_id ,phone , chronic_disease ,gentic_disease , blood_type , setData})
     }
 
     useEffect(() => {

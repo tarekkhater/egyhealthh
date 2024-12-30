@@ -11,7 +11,7 @@ import { toast , ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function DeleteDoctor({open , setOpen , doctorSelected , x , setX }) {
+export default function DeleteDoctor({token , open , setOpen , doctorSelected , x , setX }) {
     const style = {
         position: 'relative' ,
         top: '50%',
@@ -46,7 +46,7 @@ export default function DeleteDoctor({open , setOpen , doctorSelected , x , setX
 
     const submitForm = async event => {
         event.preventDefault()
-        deleteDoctor({'id': doctorSelected?.id ,setData})
+        deleteDoctor({token,'id': doctorSelected?.id ,setData})
     }
 
     console.log('data' , doctorSelected)

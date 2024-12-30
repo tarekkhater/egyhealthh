@@ -1,12 +1,14 @@
 import styles from '../../styles/Auth/Login.module.css';
 import {AuthCard ,  Button , Input , InputError , Label } from '../Tools/Tools'
-import {  useState } from 'react'
+import {  useEffect, useState } from 'react'
 import Link from 'next/link';
 import { useAuth } from '../../Hooks/auth'
 import { easeInOut, motion } from 'framer-motion';
+import localStorage from 'redux-persist/lib/storage';
+import { useRouter } from 'next/router';
 function UserLogin() {
 
-    const { login , user , token } = useAuth({
+    const { login , user  } = useAuth({
     middleware: 'guest',
     redirectIfAuthenticated: '/',
     })
@@ -14,12 +16,27 @@ function UserLogin() {
     const [password, setPassword] = useState('')
     const [shouldRemember, setShouldRemember] = useState(false)
     const [data, setData] = useState()
+    const [userData, setUserData] = useState()
+    const [token, setToken] = useState()
+    const router = useRouter()
 
-    console.log('data' , data , 'user' , user , 'token' , token)
+
     const submitForm = async (e) => {
         e.preventDefault()
         login({email, password, shouldRemember, setData })
     }
+    useEffect(() => {
+        const getToken = localStorage.getItem(('authToken')).then((token) =>{
+        user({token,setUserData})
+        })
+      }, [data]);
+
+      useEffect(() => {
+        if(userData?.email){
+          router.push('/')
+        }
+      }, [userData]);
+console.log(userData)
     return (
     <>
     
@@ -33,7 +50,7 @@ function UserLogin() {
 
             {/* Session Status */}
             <div className={styles.title}>
-                        <p>Login</p>
+                        <p>User Login</p>
                         {
                         data?.status == false &&(
                                 <p style={{color:'red' , fontSize:'16px'}}>{data?.msg}</p>

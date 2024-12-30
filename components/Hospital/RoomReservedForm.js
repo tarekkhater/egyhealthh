@@ -11,7 +11,7 @@ import { toast , ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function RoomReservedForm({open , setOpen , roomSelected , doctors}) {
+export default function RoomReservedForm({token , open , setOpen , roomSelected , doctors}) {
     const style = {
         position: 'relative' ,
         top: '50%',
@@ -63,7 +63,7 @@ export default function RoomReservedForm({open , setOpen , roomSelected , doctor
 
     const submitForm = async event => {
         event.preventDefault()
-        reserve({  name, phone, national_id, room_number,date ,'doctor_name' : doctorSelected ,setData})
+        reserve({token ,  name, phone, national_id, room_number,date ,'doctor_name' : doctorSelected ,setData})
     }
 
     console.log('data' , data)

@@ -5,9 +5,6 @@
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     border-radius: 10px;
     border:1px solid lightgray;
-    animation-duration: 150ms;
-    max-width:100%;
-    transition: max-width 1.5s ease;
     } 
     
     

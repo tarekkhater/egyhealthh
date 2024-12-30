@@ -9,15 +9,21 @@ import UpdateForm from '@/components/Patient/UpdateForm '
 import { Button } from '@/components/Tools/Tools '
 import Loading from '@/components/Loading '
 import { useRouter } from 'next/router'
+import localStorage from 'redux-persist/lib/storage'
+
 export default function Profile() {
     const {UserData} = useAuth({'middleware':'auth'})
     const [data , setData] = useState()
     const [open , setOpen] = useState(false)
     const [x , setX] =useState(1)
     const router = useRouter()
+    const [tokens , setTokens] = useState()
 
     useEffect(() => {
-        UserData({setData})
+      const getToken = localStorage.getItem(('authToken')).then((token) =>{
+        setTokens(token)
+        UserData({token , setData})
+      });
     }, [x]);
 
     useEffect(() => {
@@ -30,7 +36,7 @@ export default function Profile() {
       return <Loading />
     }
   return (
-    <Layout container={
+    <Layout token={tokens} container={
         <>
           {data?.Data?.full_name ? (
             <div className={styles.container}>
@@ -50,7 +56,7 @@ export default function Profile() {
               <div className={styles.header}>
                 <h2>Fill the form</h2>
               </div>
-              <EnterDataForm x={x} setX={setX} />
+              <EnterDataForm token={tokens} x={x} setX={setX} />
             </div>
           ):(
             <p>Loading...</p>

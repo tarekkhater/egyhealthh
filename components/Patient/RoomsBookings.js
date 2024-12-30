@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import styles from '../../styles/Table.module.css'
 import { motion } from 'framer-motion';
 
-export default function RoomsBookings({reservs , setX}) {
+export default function RoomsBookings({token,reservs , setX}) {
   const variants ={
     hover:{scale:1.06  ,
         translation:{type:'spring' }
@@ -79,7 +79,7 @@ export default function RoomsBookings({reservs , setX}) {
                         <TableCell>
                             <motion.button className={styles.rejected} variants={variants} whileHover='hover' onClick={()=>
                             {   reserve.status = 'canceled';
-                            cancelReservation({'id':reserve.id });
+                            cancelReservation({token,'id':reserve.id });
                             setX(x+1)
                         }}>Cancel</motion.button>
                         </TableCell>

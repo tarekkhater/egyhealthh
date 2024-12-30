@@ -10,7 +10,7 @@ import AddDoctor from '@/components/Hospital/AddDoctor '
 import DeleteDoctor from '@/components/Hospital/DeleteDoctor '
 import Loading from '@/components/Loading '
 import { useRouter } from 'next/router'
-
+import localStorage from 'redux-persist/lib/storage'
 
 export default function Reservs() {
     const {user , doctors , search } = useAuth({'middleware':"auth"})
@@ -22,9 +22,15 @@ export default function Reservs() {
     const [x , setX] = useState(1)
     const [openDeleteForm , setOpenDeleteForm] = useState(false)
     const router = useRouter()
+    const [tokens , setTokens] = useState()
+    const [userData , setUserData] = useState()
 
     useEffect(() => {
-        doctors({setData  })
+        const getToken = localStorage.getItem(('hospitalAuthToken')).then((token) =>{
+            doctors({token , setData  })
+            user({token , setUserData  })
+            setTokens(token)
+          })
     }, [x]);
 
 
@@ -35,7 +41,7 @@ export default function Reservs() {
     }
 
     useEffect(() => {
-        search({value , setResult})
+        search({'token' : tokens,value , setResult})
     }, [value]);
 
   
@@ -45,7 +51,7 @@ export default function Reservs() {
     }
 
   return (
-    <HospitalLayout Navbar={<HospitalNav hospital={user}  />}
+    <HospitalLayout token={tokens} user={userData} Navbar={<HospitalNav user={userData}  />}
         container={
         <div className={styles.container}>
             <div style={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}}>
@@ -70,8 +76,8 @@ export default function Reservs() {
                 <Doctors doctors={!value ? data?.Doctors  :result?.Doctors?.length  == 0 ? data?.Doctors : result?.Doctors}
                 setDoctorSelected={setDoctorSelected} setOpenDeleteForm={setOpenDeleteForm} /> 
             </div>
-            <AddDoctor  open={open} setOpen={setOpen}  x={x} setX={setX} />
-            <DeleteDoctor  doctorSelected={doctorSelected} open={openDeleteForm} setOpen={setOpenDeleteForm} x={x} setX={setX} />
+            <AddDoctor token={tokens}  open={open} setOpen={setOpen}  x={x} setX={setX} />
+            <DeleteDoctor token={tokens} doctorSelected={doctorSelected} open={openDeleteForm} setOpen={setOpenDeleteForm} x={x} setX={setX} />
         </div>
         
     }/>

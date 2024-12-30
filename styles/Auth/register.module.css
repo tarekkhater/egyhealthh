@@ -6,7 +6,8 @@
     justify-content: center;
     align-items: center;
     padding:3rem 0rem;
-    
+    background-image: url('https://www.national.edu/wp-content/uploads/2021/11/Nov_4_iStock-1127069581-scaled.jpeg');
+    background-size: fill;
 }
 
 .form{
@@ -40,7 +41,7 @@
 }
 .confirmLogin a{
     text-decoration:none ;
-    color:rgb(75 85 99);
+    color:rgb(219, 20, 63);
     margin-right: 0.75rem;
 }
 

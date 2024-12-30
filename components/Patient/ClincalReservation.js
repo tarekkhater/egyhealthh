@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { easeInOut, motion } from 'framer-motion';
 
 
-export default function ClincalReservation({setReserveType , setShow , clincals , id}) {
+export default function ClincalReservation({token,setReserveType , setShow , clincals , id}) {
     const style = {
         position: 'relative' ,
         top: '50%',
@@ -51,7 +51,7 @@ export default function ClincalReservation({setReserveType , setShow , clincals 
 
     const submitForm = async event => {
         event.preventDefault()
-        clincalReserve({ clincal,  date  , 'hospital_id':id ,setData})
+        clincalReserve({token , clincal,  date  , 'hospital_id':id ,setData})
     }
 
     console.log('data' , data)

@@ -5,6 +5,8 @@
     display:flex;
     justify-content: center;
     align-items: center;
+    background-image: url('https://www.national.edu/wp-content/uploads/2021/11/Nov_4_iStock-1127069581-scaled.jpeg');
+    background-size: cover;
 }
 
 .ring{

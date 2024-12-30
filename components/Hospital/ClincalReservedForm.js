@@ -11,7 +11,7 @@ import { toast , ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function ClincalReservedForm({open , setOpen , clincalSelected }) {
+export default function ClincalReservedForm({token , open , setOpen , clincalSelected }) {
     const style = {
         position: 'relative' ,
         top: '50%',
@@ -49,10 +49,9 @@ export default function ClincalReservedForm({open , setOpen , clincalSelected })
 
     const submitForm = async event => {
         event.preventDefault()
-        clincalReserve({'clincal': clincalSelected.name , date ,setData})
+        clincalReserve({token , 'clincal': clincalSelected.name , date ,setData})
     }
 
-    console.log('data' , data)
         useEffect(() => {
             if(data?.status == true){
                 toast.success(data?.msg, {

@@ -6,9 +6,8 @@ import styles from '../../styles/Hospital/Navbar.module.css'
 import { motion } from 'framer-motion'
 import { Button } from '../Tools/Tools';
 import { useAuth } from '@/Hooks/hospitalAuth ';
-export default function HospitalNav({hospital}) {
-    const{logout , user} = useAuth({'middleware':"auth" , 'redirectIfAuthenticated': ''})
-
+export default function HospitalNav({token , user}) {
+    const{logout } = useAuth({'middleware':"auth" , 'redirectIfAuthenticated': ''})
     const nav = useRef()
     const collapseRef = useRef()
     const [collapse , setCollapse] = useState(false);
@@ -17,6 +16,7 @@ export default function HospitalNav({hospital}) {
         translation:{type:'spring' , stiffness:300}
     }
     }
+    
 
     useEffect(() => {
         let handler = (e)=>{
@@ -24,10 +24,12 @@ export default function HospitalNav({hospital}) {
                 setCollapse(false)
             }
         }
-
         window.addEventListener('mousedown',handler);
-    });
-
+        return () => {
+            window.removeEventListener('mousedown', handler);
+            };
+        }, []);
+console.log('userrrr' , user)
     return (
     <div className={styles.container}  ref={nav}>
         <nav className={styles.nav}>
@@ -43,7 +45,7 @@ export default function HospitalNav({hospital}) {
             
         </div>
         <div className={styles.right}>
-        <motion.button className={styles.logout} whileHover={{scale:1.03 , color:'rgb(214, 18, 44, 0.800)'}} onClick={logout} >Logout</motion.button>
+        <motion.button className={styles.logout} whileHover={{scale:1.03 , color:'rgb(214, 18, 44, 0.800)'}} onClick={()=>logout({token})} >Logout</motion.button>
         <img src="https://www.shutterstock.com/image-vector/family-love-health-care-logo-260nw-1017398170.jpg"  alt="" className={styles.image}/>
             <motion.button className={styles.collapseButton} ref={collapseRef} onClick={()=>{setCollapse(!collapse)}}
             whileHover={{scale:1.1 , color:'darkgray'}} >
@@ -66,7 +68,7 @@ export default function HospitalNav({hospital}) {
                 <motion.li variants={variants} whileHover='hover'><a href="/hospital/rooms" >Rooms</a></motion.li>
                 <motion.li variants={variants} whileHover='hover'><a href="/hospital/clincals" >Clincals</a></motion.li>
                 <li className={styles.search}>
-                <motion.button className={styles.logout} variants={variants} whileHover='hover' onClick={logout} >Logout</motion.button>
+                <motion.button className={styles.logout} variants={variants} whileHover='hover' onClick={()=>logout({token})} >Logout</motion.button>
                 </li>
             </ul>
         </motion.div>

@@ -12,6 +12,8 @@ import { motion } from 'framer-motion';
 export default function Rooms({rooms , setOpen , setOpenDeleteForm ,setRoomSelected }) {
 
     const variants ={
+        hidden: { opacity: 0, y: -10 },
+        visible: { opacity: 1, y: 0 },
         hover:{scale:1.06  ,
             translation:{type:'spring' }
         }
@@ -36,7 +38,13 @@ export default function Rooms({rooms , setOpen , setOpenDeleteForm ,setRoomSelec
             </TableHead>
             <TableBody>
                 {rooms?.map((room) => (
-                <TableRow key={room.id}>
+                <motion.tr
+                key={room.id}
+                variants={variants}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.8 }}
+                >
                     <TableCell >
                     <div className={styles.cellWrapper}>
                     <img src='https://media.gemini.media/img/Original/2022/9/10/2022_9_10_16_8_8_248.jpg' alt={room?.number} className={styles.image}/>
@@ -62,7 +70,7 @@ export default function Rooms({rooms , setOpen , setOpenDeleteForm ,setRoomSelec
                     <TableCell>
                             <motion.button className={styles.AddDoctor} style={{backgroundColor:'rgba(152, 22, 22, 0.866)'}} variants={variants} whileHover='hover' onClick={()=>{setOpenDeleteForm(true); setRoomSelected(room)}}>Delete</motion.button>
                     </TableCell>
-                </TableRow>
+                </motion.tr>
                 ))}
             </TableBody>
             </Table>

@@ -12,6 +12,8 @@ import { motion } from 'framer-motion';
 export default function Doctors({doctors ,setDoctorSelected , setOpenDeleteForm }) {
 
     const variants ={
+        hidden: { opacity: 0, y: -10 },
+        visible: { opacity: 1, y: 0 },
         hover:{scale:1.06  ,
             translation:{type:'spring' }
         }
@@ -37,7 +39,14 @@ export default function Doctors({doctors ,setDoctorSelected , setOpenDeleteForm 
             </TableHead>
             <TableBody>
                 {doctors?.map((doctor) => (
-                <TableRow id={doctor.name} key={doctor.id}>
+                <motion.tr
+                id={doctor.name}
+                key={doctor.id}
+                variants={variants}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.8 }}
+                >
                     <TableCell >
                     <div className={styles.cellWrapper}>
                     <img src={doctor?.image ?`http://domaiiiinonline.onlinewebshop.net/images/Users/${doctor?.image}` : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt={doctor?.name} className={styles.image}/>
@@ -51,7 +60,7 @@ export default function Doctors({doctors ,setDoctorSelected , setOpenDeleteForm 
                     <TableCell>
                             <motion.button className={styles.AddDoctor} style={{backgroundColor:'rgba(152, 22, 22, 0.866)'}} variants={variants} whileHover='hover' onClick={()=>{setOpenDeleteForm(true); setDoctorSelected(doctor)}}>Delete</motion.button>
                     </TableCell>
-                </TableRow>
+                </motion.tr>
                 ))}
             </TableBody>
             </Table>

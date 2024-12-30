@@ -86,6 +86,8 @@
     }
     .collapse{
         display:none;
+        background-color: rgba(34, 1, 18, 0.329);
+
     }
     .headers{
         display: flex;
@@ -113,8 +115,14 @@
             color:darkgray;
         }
         .collapse{
-           margin:1rem; 
-           display: flex;
+            position: fixed;
+            width:100%;
+            left:0;
+            margin-left: 0;
+            margin-top:0.4rem;
+            padding:0 1rem;
+            display: flex;
+            height:100vh;
         }
         .collapse ul{
             list-style-type: none;
@@ -123,6 +131,13 @@
         .collapse ul li{
             line-height: 3;
             padding:0;
+            font-size: 18px;
+            font-weight: 800;
+        }
+        .logout{
+            font-size:18px;
+            font-size: 18px;
+            font-weight: 800;
         }
         .collapse ul li input{
             padding:7px 9px;

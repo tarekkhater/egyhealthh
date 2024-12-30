@@ -11,6 +11,8 @@ import { useAuth } from '@/Hooks/hospitalAuth ';
 import { motion } from 'framer-motion';
 export default function Clincal({clincals , setOpenDeleteForm , setOpen ,setClincalSelected }) {
     const variants ={
+        hidden: { opacity: 0, y: -10 },
+        visible: { opacity: 1, y: 0 },
         hover:{scale:1.06  ,
             translation:{type:'spring' }
         }
@@ -34,7 +36,13 @@ export default function Clincal({clincals , setOpenDeleteForm , setOpen ,setClin
             </TableHead>
             <TableBody>
                 {clincals?.map((clincal) => (
-                <TableRow key={clincal.id}>
+                <motion.tr
+                key={clincal.id}
+                variants={variants}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 0.8 }}
+                >
                     <TableCell >
                         {clincals?.indexOf(clincal) + 1}
                     </TableCell>
@@ -45,7 +53,7 @@ export default function Clincal({clincals , setOpenDeleteForm , setOpen ,setClin
                     <TableCell>
                             <motion.button className={styles.clincalButtons} style={{backgroundColor:'rgba(152, 22, 22, 0.866)'}} variants={variants} whileHover='hover' onClick={()=>{setOpenDeleteForm(true); setClincalSelected(clincal)}}>Delete</motion.button>
                     </TableCell>
-                </TableRow>
+                </motion.tr>
                 ))}
             </TableBody>
             </Table>

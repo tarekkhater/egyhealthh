@@ -10,7 +10,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 
-export default function UserNav() {
+export default function UserNav({token}) {
 
     const [collapse , setCollapse] = useState(false);
     const {searchByName , logout}  = useAuth({'middleware':'auth'})
@@ -43,7 +43,7 @@ export default function UserNav() {
             setValue(null)
             setData(null)
         }
-        searchByName({value , setData})
+        searchByName({token,value , setData})
     }, [value]);
 
     useEffect(() => {
@@ -54,7 +54,10 @@ export default function UserNav() {
         }
 
         window.addEventListener('mousedown',handler);
-    });
+        return () => {
+            window.removeEventListener('mousedown', handler);
+            };
+    }, []);
 
     useEffect(() => {
     let handler = (e)=>{
@@ -63,7 +66,8 @@ export default function UserNav() {
         }
     }
     window.addEventListener('mousedown',handler);
-    });
+    
+    }, []);
 
     useEffect(() => {
         let handler = (e)=>{
@@ -72,8 +76,8 @@ export default function UserNav() {
             }
         }
         window.addEventListener('mousedown',handler);
-        });
-
+        
+        },[]);
 
     return (
     <div className={styles.container}  ref={nav}>
@@ -140,7 +144,7 @@ export default function UserNav() {
                     <a href="/change-password" className={styles.brand}>
                         <MenuItem onClick={handleClose}>Change Password</MenuItem>
                     </a>
-                    <MenuItem onClick={logout}>Logout</MenuItem>
+                    <MenuItem onClick={()=>logout({token})}>Logout</MenuItem>
                 </div>
                 )}
             </div>
@@ -187,7 +191,7 @@ export default function UserNav() {
                 </div>
                 <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFsZSUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80"  alt="" className={styles.image}/>
                 </li>
-                <motion.li variants={variants} whileHover='hover' className={styles.logout} onClick={logout}>Logout</motion.li>
+                <motion.li variants={variants} whileHover='hover' className={styles.logout} onClick={()=>logout({token})}>Logout</motion.li>
             </ul>
         </motion.div>
         )}
