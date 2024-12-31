@@ -36,7 +36,6 @@ function UserLogin() {
           router.push('/')
         }
       }, [userData]);
-console.log(userData)
     return (
     <>
     
